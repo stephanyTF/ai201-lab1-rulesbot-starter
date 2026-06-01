@@ -103,7 +103,11 @@ When returning all `n_results`, a tradeoff is diluting the relevant context with
 *How does your implementation behave when: (a) the collection is empty, (b) the query matches no chunks well, (c) the query matches chunks from multiple games?*
 
 ```
-[your answer here]
+(a)
+
+(b)
+
+(c)
 ```
 
 ---

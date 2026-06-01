@@ -44,6 +44,8 @@ def embed_and_store(chunks):
         ids=[c["chunk_id"] for c in chunks],
     )
     print(f"Stored {_collection.count()} total chunks in the vector database.")
+    
+   
 
 
 def retrieve(query, n_results=N_RESULTS):
@@ -67,6 +69,36 @@ def retrieve(query, n_results=N_RESULTS):
     """
     if _collection.count() == 0:
         return []
+    
+
 
     # Your implementation here.
-    return []
+
+    #1. Created results variable to store the output of _collection.query() with the appropriate parameters.
+    results = _collection.query(
+        query_texts=[query],
+        n_results=n_results,
+        include=["documents", "metadatas", "distances"]
+    )
+
+    #2. Transformed the nested list output into a list of dicts with keys "text", "game", and "distance".
+    chunks = [
+        {
+            "text": doc,
+            "game": meta["game"],
+            "distance": dist
+        }
+        for doc, meta, dist in zip(results["documents"][0], results["metadatas"][0], results["distances"][0])
+    ]
+
+  #Note: no need to sort since ChromaDB already returns results in order of similarity (most similar first).
+
+  
+    #4. Printed the retrieved chunks with their game names and similarity scores for verification.
+
+    #Verify Working Retrieval:
+    for chunk in chunks:
+        print(f"[{chunk['game']}] (dist: {chunk['distance']:.3f}) {chunk['text'][:80]}...")
+
+
+    return chunks
