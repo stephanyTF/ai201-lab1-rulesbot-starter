@@ -68,6 +68,7 @@ def retrieve(query, n_results=N_RESULTS):
     have one query, so you'll want index [0] to get the actual results.
     """
     if _collection.count() == 0:
+        print("No chunks found in the vector database.")
         return []
     
 
@@ -98,6 +99,7 @@ def retrieve(query, n_results=N_RESULTS):
 
     #Verify Working Retrieval:
     for chunk in chunks:
+        print("\n New Test!!")
         print(f"[{chunk['game']}] (dist: {chunk['distance']:.3f}) {chunk['text'][:80]}...")
 
 

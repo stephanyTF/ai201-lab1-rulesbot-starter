@@ -103,11 +103,11 @@ When returning all `n_results`, a tradeoff is diluting the relevant context with
 *How does your implementation behave when: (a) the collection is empty, (b) the query matches no chunks well, (c) the query matches chunks from multiple games?*
 
 ```
-(a)
+(a) If the collection is empty, it returns nothing.
 
-(b)
+(b) If the query matches no chunks well, it still returns a chunk that has the least similarity score but are still high above .7 (e.g. ~.86)
 
-(c)
+(c) When the query matches chunks from multiple games, it will return chunks from a variety of games with the least difference score.
 ```
 
 ---
@@ -119,14 +119,14 @@ When returning all `n_results`, a tradeoff is diluting the relevant context with
 **Test query and top result returned:**
 
 ```
-Query: [your test query]
-Top result game: [game name]
-Distance score: [score]
-Does it make sense? [yes / no / explain]
+Query: "What kind of clue can you give in the game?"
+Top result game: Clue
+Distance score: .337
+Does it make sense? : No because the Clue game doesn't involve giving clues but moreso giving suggestions or accusations (whether false or true). I was expecting Codenames since the game involes a person giving clues to their team. 
 ```
 
 **One thing about the query results that surprised you:**
 
 ```
-[your answer here]
+The clue game being brought up as the top result surprised me because based on the game rule docs, the Clue game rules only have about 5 words that mention "clue" while the Codenames game has about 15 appearances. I wanted to test how the retrieval would perform when given a word that is shared between two games and I see that the retreival process may have given more weight to title or headers which was why the Clue game ranked higher despite not having explicit rules about giving clues. 
 ```
